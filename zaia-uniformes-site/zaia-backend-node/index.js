@@ -14,6 +14,8 @@ connectDB();
 
 // 🔹 Configuração de CORS
 const allowedOrigins = [
+  'http://127.0.0.1:5500',
+  'http://localhost:5500',
   'http://localhost:3000', // Dev local
   'http://localhost:3001', // Dev local Next.js
   'http://localhost:3002', // Dev local Next.js
