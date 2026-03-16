@@ -1,27 +1,38 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import js from "@eslint/js";
+import next from "eslint-config-next";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const eslintConfig = [
   {
-    // Global ignores
-    ignores: [".next/**", "node_modules/**", "out/**"],
+    ignores: [
+      ".next/**",
+      "node_modules/**",
+      "out/**",
+      ".vercel/**",
+      "public/**"
+    ],
   },
-];
 
-export default eslintConfig;
+  js.configs.recommended,
+  ...next,
+
+  {
     rules: {
-      // React/JSX Rules
-      "react/prop-types": "off", // TypeScript handles this
-      "react/react-in-jsx-scope": "off", // Not needed in Next.js
+      // React
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
       "react/display-name": "warn",
       "react/no-unescaped-entities": "warn",
+
+      // React Hooks
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
 
-      // TypeScript Rules
+      // TypeScript
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
@@ -31,20 +42,19 @@ export default eslintConfig;
       ],
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/prefer-const": "error",
-      "@typescript-eslint/no-inferrable-types": "off",
 
-      // General Code Quality
+      // Código
       "no-console": ["warn", { allow: ["warn", "error"] }],
       "no-debugger": "error",
       "no-duplicate-imports": "error",
       "prefer-const": "error",
       "no-var": "error",
 
-      // Next.js Specific Rules
-      "@next/next/no-img-element": "warn", // Prefer Next.js Image component
-      "@next/next/no-page-custom-font": "off", // Allow custom fonts
+      // Next.js
+      "@next/next/no-img-element": "warn",
+      "@next/next/no-page-custom-font": "off",
 
-      // Import/Export Rules
+      // Imports
       "import/order": [
         "warn",
         {
@@ -64,35 +74,24 @@ export default eslintConfig;
         },
       ],
 
-      // Accessibility Rules
+      // Acessibilidade
       "jsx-a11y/alt-text": "warn",
       "jsx-a11y/anchor-is-valid": "warn",
       "jsx-a11y/click-events-have-key-events": "warn",
       "jsx-a11y/no-static-element-interactions": "warn",
 
-      // Performance and Best Practices
+      // Boas práticas
       "no-unused-expressions": "warn",
       "prefer-template": "warn",
       "object-shorthand": "warn",
     },
   },
+
   {
     files: ["**/*.config.{js,mjs,ts}"],
     rules: {
       "import/no-anonymous-default-export": "off",
     },
-  },
-  {
-    ignores: [
-      ".next/**",
-      "out/**",
-      "node_modules/**",
-      ".vercel/**",
-      "public/**",
-      "*.config.js",
-      "*.config.mjs",
-      "*.config.ts",
-    ],
   },
 ];
 
