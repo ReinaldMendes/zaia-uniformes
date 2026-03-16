@@ -1,134 +1,88 @@
 "use client";
 
-import { Separator } from "./ui/separator";
-import { EditableText } from "./EditableText";
-import { EditableImage } from "./EditableImage";
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Linkedin, 
-  Instagram
-} from "lucide-react";
-import { useContent } from "@/contexts/ContentContext";
+import { Instagram, Linkedin, MessageCircle } from "lucide-react";
 import Link from 'next/link';
+import { EditableText } from "./EditableText";
 
 export function Footer() {
-  const { content } = useContent();
-
-  const serviceLinks = [
-    { key: "footer.services.item1", fallback: "Contabilidade Digital", hrefKey: "footer.services.item1.href" },
-    { key: "footer.services.item2", fallback: "Obrigações Fiscais", hrefKey: "footer.services.item2.href" },
-    { key: "footer.services.item3", fallback: "Gestão Financeira", hrefKey: "footer.services.item3.href" },
-  ];
-
-  const companyLinks = [
-    { key: "footer.company.item1", fallback: "Sobre nós", hrefKey: "footer.company.item1.href" },
-    { key: "footer.company.item2", fallback: "Nossa equipe", hrefKey: "footer.company.item2.href" },
-    { key: "footer.company.item3", fallback: "Carreira", hrefKey: "footer.company.item3.href" },
-  ];
-  
-  // Links corretos das redes sociais
-  const socialLinks = {
-      linkedin: content['footer.social.linkedin.url'] || 'https://www.linkedin.com/company/contabilizetech/',
-      instagram: content['footer.social.instagram.url'] || 'https://www.instagram.com/contabilizetech/'
-  }
-
   return (
-    // Adicionamos 'relative' e 'overflow-hidden'
-    <footer id="contact" className="bg-brand-dark text-white relative overflow-hidden">
-      {/* Adicionamos a div de imagem de fundo */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center opacity-10 pointer-events-none"
-        style={{ backgroundImage: 'url(/img/background-pattern.png)' }}
-      ></div>
-
-      <div className="container mx-auto max-w-6xl px-6 relative z-10">
-        {/* Main Footer Content */}
-        <div className="py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Company Info */}
-            <div className="lg:col-span-2">
-              <Link href="/" className="flex items-center space-x-3 mb-6">
-                <EditableImage
-                  contentKey="footer.logo"
-                  fallback="/img/contabilizetech_logo.png"
-                  alt="ContabilizeTech Logo"
-                  width={40}
-                  height={40}
-                  className="h-10 w-10 filter brightness-0 invert"
-                />
-                <span className="text-xl font-semibold text-white">
-                  Contabilize<span className="text-brand-teal">Tech</span>
-                </span>
-              </Link>
-              <p className="text-gray-300 mb-6 leading-relaxed max-w-md">
-                <EditableText contentKey="footer.description" fallback="Transformamos a gestão contábil das empresas com tecnologia de ponta e expertise especializada." type="textarea" />
-              </p>
-              <div className="space-y-3">
-                <a href={`mailto:${content['footer.contact.email']}`} className="flex items-center space-x-3 text-gray-300 hover:text-brand-teal">
-                  <Mail className="h-5 w-5 text-brand-teal" />
-                  <span><EditableText contentKey="footer.contact.email" fallback="comercial@contabilizetech.com.br" as="span" /></span>
-                </a>
-                <a href={`tel:${(content['footer.contact.phone'] || '').replace(/\D/g, '')}`} className="flex items-center space-x-3 text-gray-300 hover:text-brand-teal">
-                  <Phone className="h-5 w-5 text-brand-teal" />
-                  <span><EditableText contentKey="footer.contact.phone" fallback="(42) 99820-2183" as="span" /></span>
-                </a>
-                <div className="flex items-center space-x-3">
-                  <MapPin className="h-5 w-5 text-brand-teal" />
-                  <span className="text-gray-300"><EditableText contentKey="footer.contact.address" fallback="Rua Riachuelo, 129, sala 1" as="span" /></span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Services & Company Links */}
-            <div>
-              <h3 className="font-semibold mb-6"><EditableText contentKey="footer.services.title" fallback="Serviços" as="span" /></h3>
-              <ul className="space-y-3 text-gray-300">
-                {serviceLinks.map(link => (
-                  <li key={link.key}>
-                    <Link href={content[link.hrefKey] || '#'} className="hover:text-brand-teal transition-colors">
-                      <EditableText contentKey={link.key} fallback={link.fallback} as="span" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-6"><EditableText contentKey="footer.company.title" fallback="Empresa" as="span" /></h3>
-              <ul className="space-y-3 text-gray-300">
-                {companyLinks.map(link => (
-                  <li key={link.key}>
-                    <Link href={content[link.hrefKey] || '#'} className="hover:text-brand-teal transition-colors">
-                      <EditableText contentKey={link.key} fallback={link.fallback} as="span" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+    <footer className="bg-zaia-dark-blue pt-24 pb-12 text-white relative">
+      <div className="container mx-auto px-6 grid md:grid-cols-4 gap-16">
+        {/* Company Info */}
+        <div className="col-span-2">
+          <div className="flex items-center gap-6 mb-10">
+            <img src="/img/logo.png" alt="ZAIA" className="h-24 md:h-32 rounded" />
+            <span className="text-5xl font-black tracking-tighter">ZAIA</span>
           </div>
+          <h4 className="text-3xl md:text-5xl font-light leading-tight mb-8">
+            <EditableText
+              contentKey="footer.slogan"
+              fallback="Vestindo o Protagonismo da sua empresa."
+              as="span"
+            />
+          </h4>
         </div>
-        
-        <Separator className="bg-gray-700" />
-        
-        {/* Bottom Footer */}
-        <div className="py-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-sm text-gray-400">
-               <EditableText contentKey="footer.copyright" fallback="© 2024 ContabilizeTech. Todos os direitos reservados." as="p" />
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-400 mr-2"><EditableText contentKey="footer.social.handle" fallback="@contabilizetech" as="span" /></span>
-              <Link href={socialLinks.linkedin} target="_blank" className="p-2 rounded-lg bg-gray-800 hover:bg-brand-teal transition-colors" aria-label="LinkedIn">
-                <Linkedin className="h-5 w-5" />
-              </Link>
-              <Link href={socialLinks.instagram} target="_blank" className="p-2 rounded-lg bg-gray-800 hover:bg-brand-teal transition-colors" aria-label="Instagram">
-                <Instagram className="h-5 w-5" />
-              </Link>
-            </div>
+
+        {/* Contact Info & Social */}
+        <div className="md:text-right col-span-2 flex flex-col justify-center">
+          <h5 className="font-bold uppercase tracking-widest text-sm text-blue-400 mb-6">
+            Contatos Oficiais
+          </h5>
+          <p className="text-gray-400 text-xl italic mb-2">
+            <EditableText
+              contentKey="footer.contact.email"
+              fallback="comercial@zaiauniformes.com.br"
+              as="span"
+            />
+          </p>
+          <p className="text-4xl md:text-6xl font-black">
+            <EditableText
+              contentKey="footer.contact.phone"
+              fallback="(42) 98866-5220"
+              as="span"
+            />
+          </p>
+          
+          {/* Social Links */}
+          <div className="flex md:justify-end gap-10 mt-12 text-3xl">
+            <a 
+              href="https://www.instagram.com/zaiauniformes/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-400 transition"
+            >
+              <Instagram className="w-8 h-8" />
+            </a>
+            <a 
+              href="#" 
+              className="hover:text-blue-400 transition"
+            >
+              <Linkedin className="w-8 h-8" />
+            </a>
           </div>
         </div>
       </div>
+
+      {/* Copyright */}
+      <div className="container mx-auto px-6 mt-24 pt-8 border-t border-white/5 text-center text-gray-600 text-[10px] tracking-[0.5em] uppercase font-bold">
+        <p>
+          <EditableText
+            contentKey="footer.copyright"
+            fallback="© 2026 ZAIA UNIFORMES - PONTA GROSSA, PR - MADE WITH ELITE QUALITY."
+            as="span"
+          />
+        </p>
+      </div>
+
+      {/* Floating Buttons */}
+      <a 
+        href="https://wa.me/5542988665220" 
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-10 right-10 bg-green-500 text-white w-20 h-20 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all z-50"
+      >
+        <MessageCircle className="w-8 h-8" />
+      </a>
     </footer>
   );
 }

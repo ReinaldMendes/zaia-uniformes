@@ -20,6 +20,14 @@ const config: Config = {
           dark: '#0F1724',
           light: '#F8FAFC',
         },
+        zaia: {
+          primary: '#1E3A5F',
+          secondary: '#2F5F8F',
+          accent: '#D4AF37',
+          'dark-blue': '#0F172A',
+          light: '#F8FAFC',
+          slate: '#E2E8F0',
+        },
       },
       animation: {
         'fade-in-up': 'fadeInUp 0.6s ease-out forwards',

@@ -1,29 +1,27 @@
 "use client";
 import { Header } from "../../components/Header";
 import { Hero } from "../../components/Hero";
-import { Features } from "../../components/Features";
 import { Services } from "../../components/Services";
-import { Partners } from "../../components/Partners";
+import { Portfolio } from "../../components/Portfolio";
 import { Testimonials } from "../../components/Testimonials";
-import { FAQ } from "../../components/FAQ";
+import { Contact } from "../../components/Contact";
 import { Footer } from "../../components/Footer";
 import { AdminBar } from "../../components/AdminBar";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Home() {
-  const { isAuthenticated } = useAuth();
+  const { isAdmin } = useAuth();
 
   return (
     <div className="min-h-screen">
-      {isAuthenticated && <AdminBar />}
+      {isAdmin && <AdminBar />}
       <Header />
       <main>
         <Hero />
         <Services />
-        <Features />
-        <Partners />
+        <Portfolio />
         <Testimonials />
-        <FAQ />
+        <Contact />
       </main>
       <Footer />
     </div>

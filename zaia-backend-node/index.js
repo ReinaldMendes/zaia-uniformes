@@ -15,9 +15,11 @@ connectDB();
 // 🔹 Configuração de CORS
 const allowedOrigins = [
   'http://localhost:3000', // Dev local
-  'https://contabilizetech-frontend.vercel.app', // Front no Vercel
-  'https://contabilizetech.com.br', // Domínio final
-  'https://www.contabilizetech.com.br'
+  'http://localhost:3001', // Dev local Next.js
+  'http://localhost:3002', // Dev local Next.js
+  'https://zaia-uniformes.vercel.app', // Front no Vercel
+  'https://zaiauniformes.com.br', // Domínio final
+  'https://www.zaiauniformes.com.br'
 ];
 
 const corsOptions = {

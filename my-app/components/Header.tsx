@@ -3,163 +3,145 @@
 import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { ScheduleModal } from "./ScheduleModal";
 import Link from 'next/link';
-import { useContent } from "@/contexts/ContentContext";
+import { Lock } from "lucide-react";
 import { EditableText } from "./EditableText";
-import { EditableImage } from "./EditableImage";
 
 export function Header() {
-  const { content } = useContent();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
 
-  // Estrutura de dados para os links do menu, buscando do ContentContext
   const navLinks = [
-    { 
-      textKey: 'header.menu.item1.text', 
-      href: content['header.menu.item1.href'] || '#services',
-      fallback: 'Serviços'
-    },
-    { 
-      textKey: 'header.menu.item2.text', 
-      href: content['header.menu.item2.href'] || '#quem-somos',
-      fallback: 'Quem Somos'
-    },
-    { 
-      textKey: 'header.menu.item3.text', 
-      href: content['header.menu.item3.href'] || '#contact',
-      fallback: 'Contato'
-    },
+    { label: 'Início', href: '#inicio', contentKey: 'nav.home' },
+    { label: 'Serviços', href: '#servicos', contentKey: 'nav.services' },
+    { label: 'Portfólio', href: '#portfolio', contentKey: 'nav.portfolio' },
+    { label: 'Contato', href: '#contato', contentKey: 'nav.contact' },
   ];
 
-  // Função para lidar com o scroll suave e fechar o menu mobile
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
       e.preventDefault();
       const targetId = href.substring(1);
       document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
     }
-    setIsMenuOpen(false); // Fecha o menu mobile após o clique
+    setIsMenuOpen(false);
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-      <div className="container mx-auto max-w-6xl px-6">
-        <div className="flex h-16 items-center justify-between">
+    <header className="fixed w-full z-40 transition-all duration-500" id="main-header">
+      <div className="bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3" aria-label="Página Inicial">
-            <EditableImage
-              contentKey="header.logo"
-              fallback="/img/contabilizetech_logo.png"
-              alt="ContabilizeTech Logo"
-              width={40}
-              height={40}
-              className="h-10 w-10"
+          <Link href="/" className="flex items-center gap-4 group">
+            <img 
+              src="/img/logo.png" 
+              alt="Logo ZAIA" 
+              className="h-16 md:h-20 w-auto rounded shadow-sm transition-transform group-hover:scale-105"
             />
-            <span className="text-xl font-semibold text-brand-dark">
-              Contabilize<span className="text-brand-teal">Tech</span>
-            </span>
+            <div className="flex flex-col">
+              <span className="text-2xl md:text-3xl font-extrabold tracking-tighter text-zaia-primary leading-none">ZAIA</span>
+              <span className="text-[10px] uppercase tracking-[0.3em] text-gray-500">Uniformes</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center gap-10 text-[12px] font-bold uppercase tracking-widest text-gray-700">
             {navLinks.map((link) => (
               <a 
-                key={link.textKey}
+                key={link.href}
                 href={link.href} 
-                className="text-sm font-medium text-gray-700 hover:text-brand-teal transition-colors cursor-pointer"
+                className="hover:text-zaia-primary transition"
                 onClick={(e) => handleSmoothScroll(e, link.href)}
               >
-                <EditableText contentKey={link.textKey} fallback={link.fallback} as="span" />
+                <EditableText
+                  contentKey={link.contentKey}
+                  fallback={link.label}
+                  as="span"
+                />
               </a>
             ))}
+            <a 
+              href="#contato"
+              className="bg-[#1E3A5F] text-white px-8 py-4 rounded-full hover:bg-[#2F5F8F] transition shadow-lg active:scale-95 font-bold"
+              onClick={(e) => handleSmoothScroll(e, '#contato')}
+            >
+              <EditableText
+                contentKey="nav.cta"
+                fallback="Orçamento"
+                as="span"
+              />
+            </a>
+            <Link
+              href="/admin/login"
+              className="bg-zaia-accent text-zaia-primary px-6 py-3 rounded-full hover:bg-[#c4a038] transition shadow-lg active:scale-95 font-bold flex items-center gap-2"
+            >
+              <Lock className="w-4 h-4" />
+              Admin
+            </Link>
           </nav>
 
-          {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link href="/admin/login">
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="text-brand-dark hover:text-brand-teal hover:bg-brand-teal/5 transition-all duration-300"
-              >
-                Login
-              </Button>
-            </Link>
-            <Button 
-              size="sm" 
-              className="bg-brand-gradient hover:shadow-lg hover:scale-105 transition-all duration-300"
-              onClick={() => setIsScheduleModalOpen(true)}
-            >
-              <EditableText 
-                contentKey="header.cta.demo" 
-                fallback="Agende uma demo" 
-                as="span" 
-                isButtonChild={true}
-              />
-            </Button>
-          </div>
-
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden"
+          {/* Mobile Menu Button */}
+          <button 
+            className="lg:hidden text-zaia-primary text-2xl" 
+            id="mobile-menu-btn"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? (
-              <X className="h-6 w-6 text-brand-dark" />
-            ) : (
-              <Menu className="h-6 w-6 text-brand-dark" />
-            )}
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
-        </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden border-t bg-white">
-            <nav className="flex flex-col space-y-4 p-6">
-              {navLinks.map((link) => (
-                <a 
-                  key={link.textKey}
-                  href={link.href} 
-                  className="text-sm font-medium text-gray-700 hover:text-brand-teal transition-colors cursor-pointer"
-                  onClick={(e) => handleSmoothScroll(e, link.href)}
-                >
-                  <EditableText contentKey={link.textKey} fallback={link.fallback} as="span" />
-                </a>
-              ))}
-              <div className="flex flex-col space-y-2 pt-4 border-t">
-                <Link href="/admin/login">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="justify-start text-brand-dark hover:text-brand-teal hover:bg-brand-teal/5 transition-all duration-300"
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="lg:hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50" id="mobile-menu">
+              <div className="bg-white w-80 h-full p-8">
+                <div className="flex justify-between items-center mb-12">
+                  <img src="/img/logo.png" alt="ZAIA" className="h-12 rounded" />
+                  <button 
+                    className="text-2xl text-gray-600" 
+                    id="close-mobile-menu"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Login
-                  </Button>
-                </Link>
-                <Button 
-                  size="sm" 
-                  className="bg-brand-gradient hover:shadow-lg transition-all duration-300"
-                  onClick={() => {
-                    setIsScheduleModalOpen(true);
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Agende uma demo
-                </Button>
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+                <nav className="flex flex-col gap-8 text-lg font-bold uppercase tracking-widest text-gray-700">
+                  {navLinks.map((link) => (
+                    <a 
+                      key={link.href}
+                      href={link.href} 
+                      className="hover:text-zaia-primary transition"
+                      onClick={(e) => handleSmoothScroll(e, link.href)}
+                    >
+                      <EditableText
+                        contentKey={link.contentKey}
+                        fallback={link.label}
+                        as="span"
+                      />
+                    </a>
+                  ))}
+                  <a 
+                    href="#contato"
+                    className="bg-[#1E3A5F] text-white px-6 py-3 rounded-full text-center hover:bg-[#2F5F8F] transition font-bold"
+                    onClick={(e) => handleSmoothScroll(e, '#contato')}
+                  >
+                    <EditableText
+                      contentKey="nav.cta"
+                      fallback="Orçamento"
+                      as="span"
+                    />
+                  </a>
+                  <Link 
+                    href="/admin/login" 
+                    className="bg-zaia-accent text-zaia-primary px-6 py-3 rounded-full text-center hover:bg-[#c4a038] transition font-bold flex items-center gap-2 justify-center"
+                  >
+                    <Lock className="w-4 h-4" />
+                    Admin
+                  </Link>
+                </nav>
               </div>
-            </nav>
-          </div>
-        )}
+            </div>
+          )}
+        </div>
       </div>
-      
-      <ScheduleModal 
-        open={isScheduleModalOpen} 
-        onOpenChange={setIsScheduleModalOpen} 
-      />
     </header>
   );
 }

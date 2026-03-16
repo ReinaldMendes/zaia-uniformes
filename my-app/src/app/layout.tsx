@@ -4,7 +4,6 @@ import { Inter } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { ContentProvider } from '@/contexts/ContentContext';
 import { EditProvider } from '@/contexts/EditContext';
-import { FloatingWhatsApp } from '@/components/FloatingWhatsApp';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -56,7 +55,6 @@ export default function RootLayout({
                   <div className="flex-grow">
                     {children}
                   </div>
-                  <FloatingWhatsApp />
                 </EditProvider>
               </ContentProvider>
             </AuthProvider>
