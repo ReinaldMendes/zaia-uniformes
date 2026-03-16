@@ -1,8 +1,8 @@
 {
-  "name": "contabilizetech",
+  "name": "zaia-uniformes",
   "version": "0.1.0",
   "private": true,
-  "description": "ContabilizeTech - Landing page e painel administrativo moderno para serviços contábeis",
+  "description": "Zaia Uniformes - Landing page e painel administrativo moderno para uniformes profissionais",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -85,20 +85,21 @@
     "tailwindcss": "^4.0.0-alpha.1"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": "18.x"
   },
   "keywords": [
-    "contabilidade",
-    "tecnologia",
+    "uniformes",
+    "profissionais",
     "nextjs",
     "react",
     "typescript",
     "tailwindcss",
     "landing-page",
-    "admin-panel"
+    "admin-panel",
+    "cms"
   ],
   "author": {
-    "name": "ContabilizeTech Team"
+    "name": "Zaia Uniformes Team"
   },
   "license": "MIT"
 }
