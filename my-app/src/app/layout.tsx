@@ -8,20 +8,33 @@ import { EditProvider } from '@/contexts/EditContext';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'ContabilizeTech - Soluções Contábeis Automatizadas',
-  description: 'Automatize sua contabilidade com tecnologia de ponta. Mais tempo para focar no que realmente importa: o crescimento do seu negócio.',
-  keywords: 'contabilidade, automação, gestão financeira, empresa, tecnologia',
-  authors: [{ name: 'ContabilizeTech' }],
+  title: 'Zaia Uniformes | Uniformes Corporativos e Industriais',
+  description:
+    'Uniformes profissionais, industriais e corporativos sob medida. Qualidade, conforto e identidade visual para sua empresa.',
+  keywords:
+    'uniformes corporativos, uniformes profissionais, uniformes industriais, roupas empresariais, uniformes personalizados, uniformes para empresas',
+  authors: [{ name: 'Zaia Uniformes' }],
   openGraph: {
-    title: 'ContabilizeTech - Soluções Contábeis Automatizadas',
-    description: 'Automatize sua contabilidade com tecnologia de ponta. Mais tempo para focar no que realmente importa: o crescimento do seu negócio.',
+    title: 'Zaia Uniformes Corporativos',
+    description:
+      'Uniformes profissionais e empresariais sob medida para sua empresa.',
     type: 'website',
     locale: 'pt_BR',
+    images: [
+      {
+        url: '/img/logo.png', // ⚠️ coloque essa imagem em /public/img
+        width: 1200,
+        height: 630,
+        alt: 'Zaia Uniformes Corporativos',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ContabilizeTech - Soluções Contábeis Automatizadas',
-    description: 'Automatize sua contabilidade com tecnologia de ponta.',
+    title: 'Zaia Uniformes Corporativos',
+    description:
+      'Uniformes profissionais e industriais com qualidade e estilo.',
+    images: ['/img/logo.png'],
   },
   robots: {
     index: true,
@@ -42,12 +55,13 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={inter.className}>
-        {/* 1. Wrapper principal para controlar o fundo */}
-        <div className="relative min-h-screen bg-brand-dark-blue text-gray-200">
-          {/* 2. Camada da imagem de fundo transparente */}
-          <div className="absolute inset-0 bg-main-pattern bg-repeat opacity-5 pointer-events-none z-0"></div>
+        {/* Fundo principal */}
+        <div className="relative min-h-screen bg-gray-900 text-gray-200">
           
-          {/* 3. Camada do conteúdo, por cima do fundo */}
+          {/* Background pattern leve */}
+          <div className="absolute inset-0 bg-main-pattern bg-repeat opacity-5 pointer-events-none z-0"></div>
+
+          {/* Conteúdo */}
           <div className="relative z-10 flex flex-col min-h-screen">
             <AuthProvider>
               <ContentProvider>
@@ -59,6 +73,7 @@ export default function RootLayout({
               </ContentProvider>
             </AuthProvider>
           </div>
+
         </div>
       </body>
     </html>

@@ -68,7 +68,7 @@ export function LoginForm() {
               type="email"
               value={formData.email}
               onChange={(e) => handleInputChange("email", e.target.value)}
-              placeholder="admin@contabilizetech.com.br"
+              placeholder="admin@zaiauniformes.com.br"
               required
               className="h-12"
             />
