@@ -228,5 +228,4 @@ Para suporte ou dúvidas:
 
 ---
 
-**Zaia Uniformes** - Excelência em uniformes profissionais desde 2026 🚀</content>
-<parameter name="filePath">c:\Users\Reinald\OneDrive\Área de Trabalho\DevMeus\zaia-uniformes\zaia-uniformes-site\README.md
+**Zaia Uniformes** - Excelência em uniformes profissionais desde 2026 🚀
